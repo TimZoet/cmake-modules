@@ -1,0 +1,18 @@
+set(NAME example_app)
+set(TYPE application)
+set(INCLUDE_DIR "include/example_app")
+set(SRC_DIR "src")
+
+set(HEADERS
+	${INCLUDE_DIR}/header.h
+)
+ 
+set(SOURCES
+	${SRC_DIR}/source.cpp
+)
+
+set(DEPS_PRIVATE
+	example_lib
+)
+
+make_target(NAME ${NAME} TYPE ${TYPE} EXAMPLE HEADERS "${HEADERS}" SOURCES "${SOURCES}" DEPS_PRIVATE "${DEPS_PRIVATE}")
