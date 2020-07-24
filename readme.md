@@ -1,6 +1,7 @@
-Template for CMake.
+# CMake Template
 
-(generated on Windows using 'tree /A')
+## Project Structure
+```
 +---applications
 |   \---app_example
 |       +---include
@@ -34,31 +35,33 @@ Template for CMake.
 |       |   \---module_example2
 |       \---src
 \---tests
+```
+(generated on Windows using `tree /A`)
 
----- applications ----
+### applications
 Main location for all executable targets.
 
----- cmake ----
+### cmake
 Main location for CMake scripts. Below a list of the most important scripts. See
 the scripts themselves for more documentation describing how to use the main 
 functions.
 
-ISA.cmake
+**ISA.cmake**
 	Provides options for enabling/disabling instruction sets for conditional 
 	compilation.
 
-MakeTarget.cmake
+**MakeTarget.cmake**
 	Mainly provides the make_target function.
 
----- examples ----
+### examples
 Main location for examples (applications, libraries, whatever). Building of 
 examples can be controlled globally or even on a per-target basis.
 
----- external ----
+### external
 Main location for third-party libraries that are potentially built from source.
 
----- modules ----
+### modules
 Main location for (static or dynamic) libraries.
 
----- tests ----
+### tests
 Main location for test applications.
