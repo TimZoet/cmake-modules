@@ -31,3 +31,10 @@ add_subdirectory(modules)
 # get_property(TARGETS_APPLICATIONS GLOBAL PROPERTY TARGETS_APPLICATIONS)
 # get_property(TARGETS_MODULES GLOBAL PROPERTY TARGETS_MODULES)
 # get_property(TARGETS_TESTS GLOBAL PROPERTY TARGETS_TESTS)
+
+################################################################################
+# Set startup project.
+################################################################################
+
+get_property(STARTUP_PROJECT GLOBAL PROPERTY STARTUP_PROJECT)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${STARTUP_PROJECT})

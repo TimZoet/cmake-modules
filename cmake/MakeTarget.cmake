@@ -18,6 +18,10 @@ define_property(GLOBAL PROPERTY TARGETS_TESTS
 	BRIEF_DOCS "Tests"
     FULL_DOCS "Tests"
 )
+define_property(GLOBAL PROPERTY STARTUP_PROJECT
+	BRIEF_DOCS "Startup project"
+    FULL_DOCS "If set, will mark the target as startup project in Visual Studio"
+)
 define_property(TARGET PROPERTY FOLDER
 	BRIEF_DOCS "Target folder"
     FULL_DOCS "Target folder"
@@ -68,7 +72,7 @@ endfunction()
 function(make_parse)
 	cmake_parse_arguments(
         PARSED_ARGS
-        "DYNAMIC;EXAMPLE"
+        "DYNAMIC;EXAMPLE;STARTUP"
         "NAME;TYPE;VERSION;FOLDER"
         "HEADERS;SOURCES;DEPS_PUBLIC;DEPS_INTERFACE;DEPS_PRIVATE"
         ${ARGN}
@@ -86,6 +90,13 @@ function(make_parse)
 		set(EXAMPLE true PARENT_SCOPE)
 	else()
 		set(EXAMPLE false PARENT_SCOPE)
+	endif()
+	
+	# Get startup flag.
+	if(PARSED_ARGS_STARTUP)
+		set(STARTUP true PARENT_SCOPE)
+	else()
+		set(STARTUP false PARENT_SCOPE)
 	endif()
 	
 	# Get name.
@@ -170,6 +181,8 @@ function(make_target)
 	#    test: Creates an executable target.
 	# DYNAMIC (option): Enables dynamic linking for library targets. Otherwise 
 	# target is linked statically.
+	# STARTUP (option): Marks this target as startup project (if it is an 
+	#   application).
 	# EXAMPLE (option): Marks this target as an example. Adds an option to 
 	#   disable building of this specific target.
 	# VERSION (value): Version of the target.
@@ -207,6 +220,9 @@ function(make_target)
 	elseif(TYPE STREQUAL "application")
 		add_executable(${NAME} "${HEADERS}" "${SOURCES}")
 		set_property(GLOBAL APPEND PROPERTY TARGETS_APPLICATIONS ${NAME})
+		if(STARTUP)
+			set_property(GLOBAL PROPERTY STARTUP_PROJECT ${NAME})
+		endif()
 	elseif(TYPE STREQUAL "test")
 		add_executable(${NAME} "${HEADERS}" "${SOURCES}")
 		set_property(GLOBAL APPEND PROPERTY TARGETS_TESTS ${NAME})

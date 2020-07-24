@@ -5,11 +5,11 @@ set(SRC_DIR "src")
 set(FOLDER "modules/subfolder")
 
 set(HEADERS
-	${INCLUDE_DIR}/header.h
+	${INCLUDE_DIR}/code.h
 )
  
 set(SOURCES
-	${SRC_DIR}/source.cpp
+	${SRC_DIR}/code.cpp
 )
 
 make_target(NAME ${NAME} TYPE ${TYPE} FOLDER ${FOLDER} HEADERS "${HEADERS}" SOURCES "${SOURCES}")

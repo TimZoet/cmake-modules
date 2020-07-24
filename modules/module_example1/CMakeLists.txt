@@ -4,11 +4,11 @@ set(INCLUDE_DIR "include/module_example1")
 set(SRC_DIR "src")
 
 set(HEADERS
-	${INCLUDE_DIR}/header.h
+	${INCLUDE_DIR}/code.h
 )
  
 set(SOURCES
-	${SRC_DIR}/source.cpp
+	${SRC_DIR}/code.cpp
 )
 
 set(DEPS_PRIVATE

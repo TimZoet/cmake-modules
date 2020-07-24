@@ -8,7 +8,7 @@ set(HEADERS
 )
  
 set(SOURCES
-	${SRC_DIR}/source.cpp
+	${SRC_DIR}/main.cpp
 )
 
 set(DEPS_PRIVATE
