@@ -73,7 +73,7 @@ function(make_parse)
 	cmake_parse_arguments(
         PARSED_ARGS
         "DYNAMIC;EXAMPLE;STARTUP"
-        "NAME;TYPE;VERSION;FOLDER"
+        "NAME;TYPE;VERSION;FOLDER;OUTDIR"
         "HEADERS;SOURCES;DEPS_PUBLIC;DEPS_INTERFACE;DEPS_PRIVATE"
         ${ARGN}
     )
@@ -133,6 +133,13 @@ function(make_parse)
 	else()
 		set(FOLDER ${PARSED_ARGS_FOLDER} PARENT_SCOPE)
 	endif()
+
+	# Get output subfolder.
+	if(NOT PARSED_ARGS_OUTDIR)
+		set(OUTDIR "" PARENT_SCOPE)
+	else()
+		set(OUTDIR ${PARSED_ARGS_OUTDIR} PARENT_SCOPE)
+	endif()
 	
 	# Get dependencies.
 	if(NOT PARSED_ARGS_DEPS_PUBLIC)
@@ -188,6 +195,7 @@ function(make_target)
 	# VERSION (value): Version of the target.
 	# FOLDER (value): Folder the target is placed in. If not provided, targets 
 	#   are placed in a folder based on their type.
+	# OUTDIR (value): Subfolder the binaries are placed in. Default empty.
 	# HEADERS (list): List of header files.
 	# SOURCES (list): List of source files.
 	# DEPS_PUBLIC (list): List of library targets that are linked with PUBLIC.
@@ -255,9 +263,9 @@ function(make_target)
 
 	# Output directories.
 	set_target_properties(${NAME} PROPERTIES
-		ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-		LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-		RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+		ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${OUTDIR}"
+		LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${OUTDIR}"
+		RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${OUTDIR}"
 	)
 
     # Create source groups.
