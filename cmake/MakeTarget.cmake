@@ -1,3 +1,6 @@
+# cmake-template
+# This file was last updated on 2020-08-23 (yyyy-mm-dd)
+
 define_property(GLOBAL PROPERTY TARGETS_ALL
 	BRIEF_DOCS "All targets"
     FULL_DOCS "All targets"

@@ -1,3 +1,6 @@
+# cmake-template
+# This file was last updated on 2020-08-23 (yyyy-mm-dd)
+
 function(conan_pkg_utils)
     # Get profile and packages.
     cmake_parse_arguments(

@@ -1,3 +1,6 @@
+# cmake-template
+# This file was last updated on 2020-08-23 (yyyy-mm-dd)
+
 cmake_minimum_required(VERSION 3.15)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "_CMakePredefinedTargets")
