@@ -1,2 +1,3 @@
 add_subdirectory(example_app)
 add_subdirectory(example_lib)
+add_subdirectory(example_lib_with_pkg)

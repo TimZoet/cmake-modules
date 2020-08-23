@@ -13,6 +13,7 @@ set(SOURCES
 
 set(DEPS_PRIVATE
 	example_lib
+	example_lib_with_pkg
 )
 
 make_target(NAME ${NAME} TYPE ${TYPE} EXAMPLE HEADERS "${HEADERS}" SOURCES "${SOURCES}" DEPS_PRIVATE "${DEPS_PRIVATE}")
