@@ -77,7 +77,7 @@ function(make_parse)
         PARSED_ARGS
         "DYNAMIC;EXAMPLE;STARTUP;WARNINGS;WERROR"
         "NAME;TYPE;VERSION;FOLDER;OUTDIR"
-        "HEADERS;SOURCES;DEPS_PUBLIC;DEPS_INTERFACE;DEPS_PRIVATE"
+        "HEADERS;SOURCES;DEPS_PUBLIC;DEPS_INTERFACE;DEPS_PRIVATE;INCS_PUBLIC;INCS_INTERFACE;INCS_PRIVATE"
         ${ARGN}
     )
 	
@@ -175,6 +175,23 @@ function(make_parse)
 		set(DEPS_PRIVATE "${PARSED_ARGS_DEPS_PRIVATE}" PARENT_SCOPE)
 	endif()
 	
+	# Get additional include directories.
+	if(NOT PARSED_ARGS_INCS_PUBLIC)
+		set(INCS_PUBLIC "" PARENT_SCOPE)
+	else()
+		set(INCS_PUBLIC "${PARSED_ARGS_INCS_PUBLIC}" PARENT_SCOPE)
+	endif()
+	if(NOT PARSED_ARGS_INCS_INTERFACE)
+		set(INCS_INTERFACE "" PARENT_SCOPE)
+	else()
+		set(INCS_INTERFACE "${PARSED_ARGS_INCS_INTERFACE}" PARENT_SCOPE)
+	endif()
+	if(NOT PARSED_ARGS_INCS_PRIVATE)
+		set(INCS_PRIVATE "" PARENT_SCOPE)
+	else()
+		set(INCS_PRIVATE "${PARSED_ARGS_INCS_PRIVATE}" PARENT_SCOPE)
+	endif()
+	
 	# Get headers and sources.
 	if(NOT PARSED_ARGS_HEADERS)
 		set(HEADERS "" PARENT_SCOPE)
@@ -220,6 +237,12 @@ function(make_target)
 	# DEPS_PUBLIC (list): List of library targets that are linked with PUBLIC.
 	# DEPS_PRIVATE (list): List of library targets that are linked with PRIVATE.
 	# DEPS_INTERFACE (list): List of library targets that are linked with 
+	#   INTERFACE.
+	# INCS_PUBLIC (list): List of include directories that are added with 
+	#   PUBLIC.
+	# INCS_PRIVATE (list): List of include directories that are added with 
+	#   PRIVATE.
+	# INCS_INTERFACE (list): List of include directories that are added with
 	#   INTERFACE.
 	message(STATUS "start make_target()")
 	list(APPEND CMAKE_MESSAGE_INDENT "  ")
@@ -281,12 +304,21 @@ function(make_target)
 	endif()
     
     # Linking.
-    message(STATUS "Linking ${NAME} with PUBLIC [${DEPS_PUBLIC}] INTERFACE [${DEPS_INTERFACE}] PRIVATE [${DEPS_PRIVATE}]")
+    message(STATUS "Linking with: PUBLIC [${DEPS_PUBLIC}] INTERFACE [${DEPS_INTERFACE}] PRIVATE [${DEPS_PRIVATE}]")
     target_link_libraries(
         ${NAME}
         PUBLIC ${DEPS_PUBLIC}
         INTERFACE ${DEPS_INTERFACE}
         PRIVATE ${DEPS_PRIVATE}
+    )
+	
+	# Additional include directories.
+    message(STATUS "Additional include directories: PUBLIC [${INCS_PUBLIC}] INTERFACE [${INCS_INTERFACE}] PRIVATE [${INCS_PRIVATE}]")
+    target_include_directories(
+        ${NAME}
+        PUBLIC ${INCS_PUBLIC}
+        INTERFACE ${INCS_INTERFACE}
+        PRIVATE ${INCS_PRIVATE}
     )
     
     # Add own include directories to target.
