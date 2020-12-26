@@ -1,5 +1,5 @@
 # cmake-template
-# This file was last updated on 2020-08-23 (yyyy-mm-dd)
+# This file was last updated on 2020-12-26 (yyyy-mm-dd)
 
 define_property(GLOBAL PROPERTY TARGETS_ALL
 	BRIEF_DOCS "All targets"
@@ -75,7 +75,7 @@ endfunction()
 function(make_parse)
 	cmake_parse_arguments(
         PARSED_ARGS
-        "DYNAMIC;EXAMPLE;STARTUP"
+        "DYNAMIC;EXAMPLE;STARTUP;WARNINGS;WERROR"
         "NAME;TYPE;VERSION;FOLDER;OUTDIR"
         "HEADERS;SOURCES;DEPS_PUBLIC;DEPS_INTERFACE;DEPS_PRIVATE"
         ${ARGN}
@@ -100,6 +100,20 @@ function(make_parse)
 		set(STARTUP true PARENT_SCOPE)
 	else()
 		set(STARTUP false PARENT_SCOPE)
+	endif()
+	
+	# Get warnings flag.
+	if(PARSED_ARGS_WARNINGS)
+		set(WARNINGS true PARENT_SCOPE)
+	else()
+		set(WARNINGS false PARENT_SCOPE)
+	endif()
+	
+	# Get warnings as error flag.
+	if(PARSED_ARGS_WERROR)
+		set(WERROR true PARENT_SCOPE)
+	else()
+		set(WERROR false PARENT_SCOPE)
 	endif()
 	
 	# Get name.
@@ -195,6 +209,8 @@ function(make_target)
 	#   application).
 	# EXAMPLE (option): Marks this target as an example. Adds an option to 
 	#   disable building of this specific target.
+	# WARNINGS (option) Enable highest warning level.
+	# WERROR (option): Treat warnings as errors.
 	# VERSION (value): Version of the target.
 	# FOLDER (value): Folder the target is placed in. If not provided, targets 
 	#   are placed in a folder based on their type.
@@ -248,6 +264,21 @@ function(make_target)
 
 	# Set version and folder.
     set_target_properties(${NAME} PROPERTIES VERSION ${VERSION} FOLDER ${FOLDER})
+	
+	# Set warnings.
+	if (WARNINGS)
+		if (WERROR)
+			target_compile_options(${NAME} PRIVATE
+				$<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
+				$<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic -Werror>
+			)
+		else()
+			target_compile_options(${NAME} PRIVATE
+				$<$<CXX_COMPILER_ID:MSVC>:/W4>
+				$<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic>
+			)
+		endif()
+	endif()
     
     # Linking.
     message(STATUS "Linking ${NAME} with PUBLIC [${DEPS_PUBLIC}] INTERFACE [${DEPS_INTERFACE}] PRIVATE [${DEPS_PRIVATE}]")
