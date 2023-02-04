@@ -1,4 +1,5 @@
 from conans import ConanFile
+from conan.tools.files import copy
 
 class CMakeTemplateConan(ConanFile):
     ############################################################################
@@ -22,4 +23,6 @@ class CMakeTemplateConan(ConanFile):
     ############################################################################
 
     def package(self):
-        self.copy("*.cmake")
+        print("cmake-template::package")
+        copy(self, "*.cmake", self.source_folder, self.package_folder)
+        copy(self, "include/dummy.h", self.source_folder, self.package_folder)
