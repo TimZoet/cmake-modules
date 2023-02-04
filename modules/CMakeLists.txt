@@ -1,2 +1,0 @@
-add_subdirectory(module_example1)
-add_subdirectory(module_example2)
