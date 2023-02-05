@@ -1,16 +1,16 @@
 from conans import ConanFile
 from conan.tools.files import copy
 
-class CMakeTemplateConan(ConanFile):
+class CMakeModulesConan(ConanFile):
     ############################################################################
     ## Package info.                                                          ##
     ############################################################################
     
-    name = "cmake-template"
+    name = "cmake-modules"
     
-    description = "CMake template"
+    description = "CMake utility modules"
     
-    url = "https://github.com/TimZoet/cmake-template"
+    url = "https://github.com/TimZoet/cmake-modules"
     
     version = "1.0.0"
     
@@ -23,6 +23,5 @@ class CMakeTemplateConan(ConanFile):
     ############################################################################
 
     def package(self):
-        print("cmake-template::package")
         copy(self, "*.cmake", self.source_folder, self.package_folder)
         copy(self, "include/dummy.h", self.source_folder, self.package_folder)
