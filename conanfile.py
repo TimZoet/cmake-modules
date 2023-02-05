@@ -12,6 +12,10 @@ class CMakeModulesConan(ConanFile):
     
     url = "https://github.com/TimZoet/cmake-modules"
     
+    license = "GNU AFFERO GENERAL PUBLIC LICENSE Version 3"
+    
+    author = "Tim Zoet"
+    
     version = "1.0.0"
     
     exports_sources = "*"
