@@ -92,7 +92,7 @@ function(install_target)
             COMPATIBILITY AnyNewerVersion
         )
 
-        configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/PackageConfigTemplate.cmake.in
+        configure_package_config_file(${CMAKE_TEMPLATE_DIR}/PackageConfigTemplate.cmake.in
           "${CMAKE_CURRENT_BINARY_DIR}/${NAME}Config.cmake"
           INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${NAME}
         )
