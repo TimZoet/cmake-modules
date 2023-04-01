@@ -28,4 +28,5 @@ class CMakeModulesConan(ConanFile):
 
     def package(self):
         copy(self, "*.cmake", self.source_folder, self.package_folder)
+        copy(self, "*.in", self.source_folder, self.package_folder)
         copy(self, "include/dummy.h", self.source_folder, self.package_folder)
