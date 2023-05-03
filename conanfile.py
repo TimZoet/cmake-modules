@@ -22,6 +22,22 @@ class CMakeModulesConan(ConanFile):
     
     no_copy_source = True
 
+    @property
+    def user(self):
+        return getattr(self, "_user", "timzoet")
+    
+    @user.setter
+    def user(self, value):
+        self._user = value
+    
+    @property
+    def channel(self):
+        return getattr(self, "_channel", f"v{self.version}")
+    
+    @channel.setter
+    def channel(self, value):
+        self._channel = value
+
     ############################################################################
     ## Building.                                                              ##
     ############################################################################
