@@ -16,7 +16,7 @@ class CMakeModulesConan(ConanFile):
     
     author = "Tim Zoet"
     
-    version = "1.0.0"
+    version = "1.0.1"
     
     exports_sources = "*"
     
