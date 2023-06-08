@@ -87,14 +87,15 @@ function(install_target)
         include(CMakePackageConfigHelpers)
 
         write_basic_package_version_file(
-            "${NAME}ConfigVersion.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/${NAME}ConfigVersion.cmake"
             VERSION ${VERSION}
-            COMPATIBILITY AnyNewerVersion
+            COMPATIBILITY SameMajorVersion
         )
 
-        configure_package_config_file(${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PackageConfigTemplate.cmake.in
-          "${CMAKE_CURRENT_BINARY_DIR}/${NAME}Config.cmake"
-          INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
+        configure_package_config_file(
+            ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PackageConfigTemplate.cmake.in
+            "${CMAKE_CURRENT_BINARY_DIR}/${NAME}Config.cmake"
+            INSTALL_DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake
         )
 
         install(
