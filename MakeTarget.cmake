@@ -81,7 +81,7 @@ function(make_parse)
 	
 	# Get linking mode.
 	if(PARSED_ARGS_DYNAMIC)
-		set(LINKING DYNAMIC PARENT_SCOPE)
+		set(LINKING SHARED PARENT_SCOPE)
 	else()
 		set(LINKING STATIC PARENT_SCOPE)
 	endif()
