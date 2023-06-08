@@ -81,7 +81,7 @@ function(install_target)
             EXPORT ${EXPORT_NAME}
             FILE "${EXPORT_NAME}.cmake"
             NAMESPACE "${NAME}::"
-            DESTINATION lib/cmake/${NAME}
+            DESTINATION lib/cmake
         )
 
         include(CMakePackageConfigHelpers)
@@ -92,16 +92,16 @@ function(install_target)
             COMPATIBILITY AnyNewerVersion
         )
 
-        configure_package_config_file(${CMAKE_TEMPLATE_DIR}/PackageConfigTemplate.cmake.in
+        configure_package_config_file(${CMAKE_CURRENT_FUNCTION_LIST_DIR}/PackageConfigTemplate.cmake.in
           "${CMAKE_CURRENT_BINARY_DIR}/${NAME}Config.cmake"
-          INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${NAME}
+          INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
         )
 
         install(
             FILES
                 "${CMAKE_CURRENT_BINARY_DIR}/${NAME}Config.cmake"
                 "${CMAKE_CURRENT_BINARY_DIR}/${NAME}ConfigVersion.cmake"
-            DESTINATION lib/cmake/${NAME}
+            DESTINATION lib/cmake
         )
     endif()
     
